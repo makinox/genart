@@ -5,18 +5,36 @@ const settings = {
 };
 
 const sketch = () => {
+  function createGrid() {
+    const points = [];
+    const count = 5;
+
+    for (let x = 0; x < count; x++) {
+      for (let y = 0; y < count; y++) {
+        const u = count <= 1 ? 0.5 : x / (count - 1);
+        const v = count <= 1 ? 0.5 : y / (count - 1);
+        points.push([u, v]);
+      }
+    }
+    return points;
+  }
+
+  const points = createGrid();
+
   return ({ context, width, height }) => {
-    context.fillStyle = 'peru';
+    context.fillStyle = 'white';
     context.fillRect(0, 0, width, height);
 
-    context.beginPath();
-    context.arc(width / 2, height / 2, 200, 0, Math.PI * 2, false);
-    context.fillStyle = 'red';
-    context.fill();
+    points.forEach(([u, v]) => {
+      const x = u * width;
+      const y = v * height;
 
-    context.lineWidth = 20;
-    context.strokeStyle = 'blue';
-    context.stroke();
+      context.beginPath();
+      context.arc(x, y, 100, 0, Math.PI * 2, false);
+      context.strokeStyle = 'black';
+      context.lineWidth = 40;
+      context.stroke();
+    });
   };
 };
 
