@@ -1,30 +1,31 @@
 // Ensure ThreeJS is in global scope for the 'examples/'
-global.THREE = require("three");
+global.THREE = require('three');
 
 // Include any additional ThreeJS examples below
-require("three/examples/js/controls/OrbitControls");
+require('three/examples/js/controls/OrbitControls');
 
-const canvasSketch = require("canvas-sketch");
+const canvasSketch = require('canvas-sketch');
 
 const settings = {
   // Make the loop animated
   animate: true,
   // Get a WebGL canvas rather than 2D
-  context: "webgl"
+  context: 'webgl',
+  attributes: { antialias: true },
 };
 
 const sketch = ({ context }) => {
   // Create a renderer
   const renderer = new THREE.WebGLRenderer({
-    canvas: context.canvas
+    canvas: context.canvas,
   });
 
   // WebGL background color
-  renderer.setClearColor("#000", 1);
+  renderer.setClearColor('#000', 1);
 
   // Setup a camera
-  const camera = new THREE.PerspectiveCamera(50, 1, 0.01, 100);
-  camera.position.set(0, 0, -4);
+  const camera = new THREE.PerspectiveCamera(30, 1, 0.01, 100);
+  camera.position.set(2, 2, -4);
   camera.lookAt(new THREE.Vector3());
 
   // Setup camera controller
@@ -33,30 +34,46 @@ const sketch = ({ context }) => {
   // Setup your scene
   const scene = new THREE.Scene();
 
+  // // Setup a geometry
+  // const geometry = new THREE.SphereGeometry(1, 32, 16);
+
+  // // Setup a material
+  // const material = new THREE.MeshBasicMaterial({
+  //   color: 'red',
+  //   wireframe: true,
+  // });
   // Setup a geometry
-  const geometry = new THREE.SphereGeometry(1, 32, 16);
+  const geometry = new THREE.BoxGeometry(1, 1, 1);
 
   // Setup a material
-  const material = new THREE.MeshBasicMaterial({
-    color: "red",
-    wireframe: true
+  const material = new THREE.MeshPhysicalMaterial({
+    color: 'red',
+    roughness: 1,
+    flatShading: true,
   });
 
   // Setup a mesh with geometry + material
   const mesh = new THREE.Mesh(geometry, material);
   scene.add(mesh);
 
+  scene.add(new THREE.AmbientLight('#59314f'));
+
+  const ligth = new THREE.PointLight('#45caf7', 1, 15.5);
+  ligth.position.set(2, 2, -4).multiplyScalar(1.5);
+  scene.add(ligth);
+
   // draw each frame
   return {
     // Handle resize events here
     resize({ pixelRatio, viewportWidth, viewportHeight }) {
       renderer.setPixelRatio(pixelRatio);
-      renderer.setSize(viewportWidth, viewportHeight, false);
+      renderer.setSize(viewportWidth, viewportHeight);
       camera.aspect = viewportWidth / viewportHeight;
       camera.updateProjectionMatrix();
     },
     // Update & render your scene here
     render({ time }) {
+      mesh.rotation.y = time * ((10 * Math.PI) / 180);
       controls.update();
       renderer.render(scene, camera);
     },
@@ -64,7 +81,7 @@ const sketch = ({ context }) => {
     unload() {
       controls.dispose();
       renderer.dispose();
-    }
+    },
   };
 };
 
