@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "canvas-sketch sketch.js --open",
-    "3d": "canvas-sketch webgl.js --open"
+    "3d": "canvas-sketch webgl.js --open",
+    "shader": "canvas-sketch shader.js --open"
   },
   "keywords": [],
   "author": "",
