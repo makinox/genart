@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "canvas-sketch sketch.js --open",
     "3d": "canvas-sketch webgl.js --open",
-    "shader": "canvas-sketch shader.js --open"
+    "shader": "canvas-sketch shader.js --open",
+    "penplot": "canvas-sketch penplotter.js --open"
   },
   "keywords": [],
   "author": "",
