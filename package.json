@@ -6,10 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "canvas-sketch sketch.js --open",
-    "3d": "canvas-sketch webgl.js --open",
-    "shader": "canvas-sketch shader.js --open",
-    "penplot": "canvas-sketch penplotter.js --open",
-    "advance": "canvas-sketch advance.js --open"
+    "3d": "canvas-sketch src/webgl.js --open",
+    "shader": "canvas-sketch src/shader.js --open",
+    "penplot": "canvas-sketch src/penplotter.js --open",
+    "advance": "canvas-sketch src/advance.js --open"
   },
   "keywords": [],
   "author": "",
