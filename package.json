@@ -10,6 +10,7 @@
     "shader": "canvas-sketch src/shader.js --open",
     "penplot": "canvas-sketch src/penplotter.js --open",
     "advance": "canvas-sketch src/advance.js --open",
+    "pattern": "canvas-sketch src/pattern.js --open",
     "torus": "canvas-sketch src/torus.js --open"
   },
   "keywords": [],
