@@ -24,8 +24,8 @@ const sketch = ({ context }) => {
   renderer.setClearColor('#000', 1);
 
   // Setup a camera
-  const camera = new THREE.PerspectiveCamera(50, 1, 0.01, 100);
-  camera.position.set(0, 0, -4);
+  const camera = new THREE.PerspectiveCamera(70, 1, 0.01, 100);
+  camera.position.set(1, 2, -4);
   camera.lookAt(new THREE.Vector3());
 
   // Setup camera controller
@@ -37,16 +37,43 @@ const sketch = ({ context }) => {
   // Setup a geometry
   const geometry = new THREE.SphereGeometry(1, 32, 16);
 
+  const loader = new THREE.TextureLoader();
+  const texture = loader.load('../assets/earth.jpg');
+  const moonTexture = loader.load('../assets/moon.jpg');
+
   // Setup a material
-  const material = new THREE.MeshNormalMaterial({
+  const material = new THREE.MeshStandardMaterial({
     // color: 'red',
     // wireframe: true,
-    flatShading: true,
+    // flatShading: true,
+    roughness: 1,
+    metalness: 0,
+    map: texture,
+  });
+  const moonMaterial = new THREE.MeshStandardMaterial({
+    roughness: 1,
+    metalness: 0,
+    map: moonTexture,
   });
 
   // Setup a mesh with geometry + material
   const mesh = new THREE.Mesh(geometry, material);
   scene.add(mesh);
+
+  const moonGroup = new THREE.Group();
+  const moonMesh = new THREE.Mesh(geometry, moonMaterial);
+  moonMesh.position.set(1.5, 1, 0);
+  moonMesh.scale.setScalar(0.25);
+  moonGroup.add(moonMesh);
+  scene.add(moonGroup);
+
+  const light = new THREE.PointLight('white', 1);
+  light.position.set(-3, 0, -5);
+  scene.add(light);
+
+  scene.add(new THREE.GridHelper(3));
+  scene.add(new THREE.AxesHelper(2));
+  scene.add(new THREE.PointLightHelper(light));
 
   // draw each frame
   return {
@@ -59,7 +86,10 @@ const sketch = ({ context }) => {
     },
     // Update & render your scene here
     render({ time }) {
-      mesh.rotation.y = time * ((10 * Math.PI) / 180);
+      mesh.rotation.y = time * 0.19;
+      moonMesh.rotation.y = time * 0.09;
+      moonGroup.rotation.y = time * 0.7;
+
       controls.update();
       renderer.render(scene, camera);
     },
