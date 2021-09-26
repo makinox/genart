@@ -11,6 +11,7 @@
     "penplot": "canvas-sketch src/penplotter.js --open",
     "advance": "canvas-sketch src/advance.js --open",
     "pattern": "canvas-sketch src/pattern.js --open",
+    "repeat": "canvas-sketch src/repeat.js --open",
     "torus": "canvas-sketch src/torus.js --open"
   },
   "keywords": [],
