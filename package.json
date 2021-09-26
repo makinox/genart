@@ -12,6 +12,7 @@
     "advance": "canvas-sketch src/advance.js --open",
     "pattern": "canvas-sketch src/pattern.js --open",
     "repeat": "canvas-sketch src/repeat.js --open",
+    "background": "canvas-sketch src/background.js --open",
     "torus": "canvas-sketch src/torus.js --open",
     "icosaedron": "canvas-sketch src/icosaedron.js --open"
   },
