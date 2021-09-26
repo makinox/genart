@@ -47,13 +47,20 @@ const sketch = ({ context }) => {
 
   const fragmentShader = /* glsl */ `
   varying vec2 vUv;
+  uniform vec3 color;
+  uniform float time;
+
     void main() {
-      gl_FragColor = vec4(vec3(vUv.x), 0.5);
+      gl_FragColor = vec4(vec3(vUv.x + sin(time), vUv.y,vUv.y + cos(time)) * color, 0.9);
     }
   `;
 
   // Setup a material
-  const material = new THREE.ShaderMaterial({ fragmentShader, vertexShader });
+  const material = new THREE.ShaderMaterial({
+    fragmentShader,
+    vertexShader,
+    uniforms: { color: { value: new THREE.Color('#fff') }, time: { value: 0 } },
+  });
 
   // Setup a mesh with geometry + material
   const mesh = new THREE.Mesh(geometry, material);
@@ -70,6 +77,7 @@ const sketch = ({ context }) => {
     },
     // Update & render your scene here
     render({ time }) {
+      material.uniforms.time.value = time;
       controls.update();
       renderer.render(scene, camera);
     },
